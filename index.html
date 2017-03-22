@@ -1,0 +1,71 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="UTF-8" />
+		<title>¶ Show formatting</title>
+<style type="text/css">
+#input, #output {
+	font-size: 300%;
+	width: 95%;
+	display: block;
+	margin: auto;
+}
+span { background: rgba(0,255,0,0.25); border-radius: 5px; padding: 0 10px; border: rgba(0,0,0,0.25) solid 1px; }
+span[title]::before { background: rgba(0,255,0,0.25); border-radius: 5px; content: attr(title); } 
+.tag { background: rgba(0,255,255,0.25); border-radius: 5px; padding: 0 10px; border: rgba(0,0,0,0.25) solid 1px; }
+</style>
+<script type="text/javascript">
+
+var replacements = { 
+	" ": "␠",
+	"\t": "␉",
+	"\n": "␤", //"␊",
+	"\r": "␍",
+	"<": "&lt;",
+	">": "&gt;",
+	"\u200f": "<span class='tag'>RLM</span>",
+	"\u200e": "<span class='tag'>LRM</span>",
+	'\u202a(.*?)\u202c' : "<span title='LRE'>$1</span>", // http://unicode.org/reports/tr9/
+	'\u202b(.*?)\u202c' : "<span title='RLE'>$1</span>",
+	'\u202d(.*?)\u202c' : "<span title='LRO'>$1</span>",
+	'\u202e(.*?)\u202c' : "<span title='RLO'>$1</span>",
+	
+	'\u2066(.*?)\u2069' : "<span dir='ltr'  title='LRI'>$1</span>",
+	'\u2067(.*?)\u2069' : "<span dir='rtl'  title='RLI'>$1</span>",
+	'\u2068(.*?)\u2069' : "<span dir='auto' title='FSI'>$1</span>",
+	
+};
+
+function convertRawToControlCharacters(input) {
+	for (var replacement in replacements) {
+		console.log (replacement + ", " + replacements[replacement]);
+		//input = input.replace(replacement, replacements[replacement]);
+		input = input.replace(new RegExp(replacement,'g'), replacements[replacement]); 
+	}
+	return input;
+}
+
+function updateOutput() {
+	var input = document.getElementById("input").value;
+	//document.getElementById("output").textContent = convertRawToControlCharacters(input);
+	document.getElementById("output").innerHTML = convertRawToControlCharacters(input);
+}
+
+document.addEventListener('DOMContentLoaded',function() {
+	document.getElementById('input').addEventListener('change', updateOutput);
+}, false);
+
+</script>
+	</head>
+	<body>
+		<fieldset>
+			<legend>Input</legend>
+			<input type="text" id="input" dir="auto" />
+		</fieldset>
+
+		<fieldset>
+			<legend>Formatting</legend>
+			<div type="text" readonly id="output" />
+		</fieldset>
+	</body>
+</html>
