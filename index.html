@@ -11,8 +11,11 @@
 	margin: auto;
 }
 span { background: rgba(0,255,0,0.25); border-radius: 5px; padding: 0 10px; border: rgba(0,0,0,0.25) solid 1px; }
-span[title]::before { background: rgba(0,255,0,0.25); border-radius: 5px; content: attr(title); } 
-.tag { background: rgba(0,255,255,0.25); border-radius: 5px; padding: 0 10px; border: rgba(0,0,0,0.25) solid 1px; }
+.element::before, .element::after { background: rgba(0,255,0,0.25); border-radius: 5px; }
+.element::before { content: attr(start-title); }
+.element::after  { content: attr(end-title); }
+
+.single { background: rgba(0,255,255,0.25); border-radius: 5px; padding: 0 10px; border: rgba(0,0,0,0.25) solid 1px; }
 </style>
 <script type="text/javascript">
 
@@ -23,16 +26,17 @@ var replacements = {
 	"\r": "␍",
 	"<": "&lt;",
 	">": "&gt;",
-	"\u200f": "<span class='tag'>RLM</span>",
-	"\u200e": "<span class='tag'>LRM</span>",
-	'\u202a(.*?)\u202c' : "<span title='LRE'>$1</span>", // http://unicode.org/reports/tr9/
-	'\u202b(.*?)\u202c' : "<span title='RLE'>$1</span>",
-	'\u202d(.*?)\u202c' : "<span title='LRO'>$1</span>",
-	'\u202e(.*?)\u202c' : "<span title='RLO'>$1</span>",
+	"\u200f": "<span class='single'>RLM</span>",
+	"\u200e": "<span class='single'>LRM</span>",
+	"\e061c": "<span class='single'>ALM</span>",
+	'\u202a(.*?)\u202c' : "<span class='element' start-title='LRE' end-title='PDF'>$1</span>", // http://unicode.org/reports/tr9/
+	'\u202b(.*?)\u202c' : "<span class='element' start-title='RLE' end-title='PDF'>$1</span>",
+	'\u202d(.*?)\u202c' : "<span class='element' start-title='LRO' end-title='PDF'>$1</span>",
+	'\u202e(.*?)\u202c' : "<span class='element' start-title='RLO' end-title='PDF'>$1</span>",
 	
-	'\u2066(.*?)\u2069' : "<span dir='ltr'  title='LRI'>$1</span>",
-	'\u2067(.*?)\u2069' : "<span dir='rtl'  title='RLI'>$1</span>",
-	'\u2068(.*?)\u2069' : "<span dir='auto' title='FSI'>$1</span>",
+	'\u2066(.*?)\u2069' : "<span class='element' dir='ltr'  start-title='LRI' end-title='PDI'>$1</span>",
+	'\u2067(.*?)\u2069' : "<span class='element' dir='rtl'  start-title='RLI' end-title='PDI'>$1</span>",
+	'\u2068(.*?)\u2069' : "<span class='element' dir='auto' start-title='FSI' end-title='PDI'>$1</span>",
 	
 };
 
