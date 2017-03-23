@@ -20,12 +20,14 @@ span { background: rgba(0,255,0,0.25); border-radius: 5px; padding: 0 10px; bord
 <script type="text/javascript">
 
 var replacements = { 
-	" ": "␠",
-	"\t": "␉",
-	"\n": "␤", //"␊",
-	"\r": "␍",
 	"<": "&lt;",
 	">": "&gt;",
+
+	" ": "<span class='single'>␠</span> " ,
+	"\t": "<span class='single'>␉</span> ",
+	"\n": "<span class='single'>␤</span> ", //"␊",
+	"\r": "<span class='single'>␍</span> ",
+
 	"\u200f": "<span class='single'>RLM</span>",
 	"\u200e": "<span class='single'>LRM</span>",
 	"\e061c": "<span class='single'>ALM</span>",
