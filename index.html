@@ -28,8 +28,8 @@ var replacements = {
 	"\n": "<span class='single'>␤</span> ", //"␊",
 	"\r": "<span class='single'>␍</span> ",
 
-	"\u200f": "<span class='single'>RLM</span>",
-	"\u200e": "<span class='single'>LRM</span>",
+	"\u200f": "‏<span class='single'>RLM</span>",
+	"\u200e": "‎<span class='single'>LRM</span>",
 	"\e061c": "<span class='single'>ALM</span>",
 	'\u202a(.*?)\u202c' : "<span class='element' start-title='LRE' end-title='PDF'>$1</span>", // http://unicode.org/reports/tr9/
 	'\u202b(.*?)\u202c' : "<span class='element' start-title='RLE' end-title='PDF'>$1</span>",
@@ -71,7 +71,7 @@ document.addEventListener('DOMContentLoaded',function() {
 
 		<fieldset>
 			<legend>Formatting</legend>
-			<div type="text" readonly id="output" />
+			<div type="text" readonly id="output" dir="auto" />
 		</fieldset>
 	</body>
 </html>
