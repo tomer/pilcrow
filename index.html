@@ -44,8 +44,6 @@ var replacements = {
 
 function convertRawToControlCharacters(input) {
 	for (var replacement in replacements) {
-		console.log (replacement + ", " + replacements[replacement]);
-		//input = input.replace(replacement, replacements[replacement]);
 		input = input.replace(new RegExp(replacement,'g'), replacements[replacement]); 
 	}
 	return input;
@@ -53,7 +51,6 @@ function convertRawToControlCharacters(input) {
 
 function updateOutput() {
 	var input = document.getElementById("input").value;
-	//document.getElementById("output").textContent = convertRawToControlCharacters(input);
 	document.getElementById("output").innerHTML = convertRawToControlCharacters(input);
 }
 
