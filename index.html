@@ -55,7 +55,12 @@ function updateOutput() {
 }
 
 document.addEventListener('DOMContentLoaded',function() {
+	let params = new URLSearchParams(document.location.search.substring(1));
+	let input = params.get("input");
+	if (input != null)
+		document.getElementById('input').value = input;
 	document.getElementById('input').addEventListener('input', updateOutput);
+	updateOutput();
 }, false);
 
 </script>
