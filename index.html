@@ -10,27 +10,30 @@
 	display: block;
 	margin: auto;
 }
-span { background: rgba(0,255,0,0.25); border-radius: 5px; padding: 0 10px; border: rgba(0,0,0,0.25) solid 1px; }
+.element { background: rgba(0,255,0,0.25); border-radius: 5px; padding: 0 10px; border: rgba(0,0,0,0.25) solid 1px; }
 .element::before, .element::after { background: rgba(0,255,0,0.25); border-radius: 5px; }
 .element::before { content: attr(start-title); }
 .element::after  { content: attr(end-title); }
 
-.single { background: rgba(0,255,255,0.25); border-radius: 5px; padding: 0 10px; border: rgba(0,0,0,0.25) solid 1px; }
+.single span {position: fixed; left: -100px}
+.single::before { content: attr(single-title); color: red }
+
 </style>
 <script type="text/javascript">
 
 var replacements = { 
 	"<": "&lt;",
 	">": "&gt;",
+	"&": "&amp;",
 
-	" ": "<span class='single'>␠</span> " ,
-	"\t": "<span class='single'>␉</span> ",
-	"\n": "<span class='single'>␤</span> ", //"␊",
-	"\r": "<span class='single'>␍</span> ",
+	" ":  "<span class='single' single-title='␠'><span> </span></span>" ,
+	"\t": "<span class='single' single-title='␉'><span>\t</span></span>",
+	"\n": "<span class='single' single-title='␤'><span>\n</span></span>", //"␊",
+	"\r": "<span class='single' single-title='␍'><span>\r</span></span>",
 
-	"\u200f": "‏<span class='single'>RLM</span>",
-	"\u200e": "‎<span class='single'>LRM</span>",
-	"\e061c": "<span class='single'>ALM</span>",
+	"\u200f": "<span class='single' single-title='RLM'><span></span>‏</span>",
+	"\u200e": "<span class='single' single-title='LRM'><span>‎</span></span>",
+	"\e061c": "<span class='single' single-title='ALM'><span>؜</span></span>",
 	'\u202a(.*?)\u202c' : "<span class='element' start-title='LRE' end-title='PDF'>$1</span>", // http://unicode.org/reports/tr9/
 	'\u202b(.*?)\u202c' : "<span class='element' start-title='RLE' end-title='PDF'>$1</span>",
 	'\u202d(.*?)\u202c' : "<span class='element' start-title='LRO' end-title='PDF'>$1</span>",
