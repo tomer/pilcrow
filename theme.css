@@ -1,0 +1,49 @@
+@media (prefers-color-scheme: dark) {
+	:root,
+	#input,
+	#output {
+		background-color: #333;
+		color: white;
+	}
+}
+
+#input,
+#output {
+	font-family: inherit;
+	font-size: 300%;
+	width: 95%;
+	display: block;
+	margin: auto;
+	word-break: break-all;
+}
+
+.element {
+	background: rgba(0,255,0,0.25);
+	border-radius: 5px;
+	padding: 0 10px;
+	border: rgba(0,0,0,0.25) solid 1px;
+}
+
+.element::before,
+.element::after {
+	background: rgba(0,255,0,0.25);
+	border-radius: 5px;
+}
+
+.element::before {
+	content: attr(start-title);
+}
+
+.element::after {
+	content: attr(end-title);
+}
+
+.single span {
+	position: fixed;
+	left: -100px;
+}
+
+.single::before {
+	content: attr(single-title);
+	color: red;
+}
